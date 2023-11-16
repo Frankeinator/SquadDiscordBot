@@ -1,6 +1,6 @@
 import sqlite3 as sql
 
-#test
+#testing
 class DatabaseHandler:
     def __init__(self, path):
         self.conn = sql.connect(path)
