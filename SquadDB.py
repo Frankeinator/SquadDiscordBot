@@ -10,7 +10,7 @@ Response is baybot's response to the Users /think
 
 In the future there will be a pictureInput and pictureResponse, this will do
 similar to Inputs and Reponses, but will capture the /create prompt and 
-pictureResponse will store the picture.  
+pictureResponse will store the picture.   
 '''
 class DatabaseHandler:
     def __init__(self, path):
