@@ -31,7 +31,7 @@ class DatabaseHandler:
                     while case2run:
                         if self.name_in_db(dbEntryName):
                             dbEntryName = input("Enter name to add response to: ")
-                            case2run = False4
+                            case2run = False
 
                         else:
                             dbEntryName = input("Name not found, try again or type exit: ")
