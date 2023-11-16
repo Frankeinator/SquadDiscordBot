@@ -1,6 +1,17 @@
 import sqlite3 as sql
 
-#testing
+'''
+REDO ALL THE FUCKING METHODS SO THAT THEY CORRECTLY USE THE NEW TABLES!!!!!!
+There are now 3 table: Users, Inputs, & Responses. Get rid of User its trash
+
+Users is all users who use a /think or /create from baybot
+Inputs is from /think
+Response is baybot's response to the Users /think
+
+In the future there will be a pictureInput and pictureResponse, this will do
+similar to Inputs and Reponses, but will capture the /create prompt and 
+pictureResponse will store the picture. 
+'''
 class DatabaseHandler:
     def __init__(self, path):
         self.conn = sql.connect(path)
