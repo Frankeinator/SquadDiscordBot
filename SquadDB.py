@@ -105,10 +105,38 @@ class DatabaseHandler:
 
     # need to change to discord username
     def insert_new_user(self, name, userInput="DEFAULT", response="DEFAULT"):
-        self.cursor.execute("INSERT INTO User (Name, userInput, gptResponse) VALUES (?, ?, ?)", (name, userInput, response))
+        self.cursor.execute("SELECT user_id FROM Users WHERE name = ?", (name,))
+        user = self.cursor.fetchone()
+        if not user: #if user doesn't exist, insert new one
+            self.cursor.execute("INSERT INTO Users (name) VALUES(?)", (name,))
+            self.conn.commit()
+            user_id = self.cursor.lastrowid #This gets the id of the new user
+        else:
+            user_id = user[0] #gets ID of existing user
+
+        #insert into Inputs
+        self.cursor.execute("INSERT INTO Inputs (user_id, input_text) VALUES (?,?)", (user_id, userInput))
+        self.conn.commit()
+        input_id = self.cursor.lastrowid #get id of new input
+
+        #insert into Responses
+        self.cursor.execute("INSERT INTO Responses (input_id, response_text) VALUES (?,?)", (input_id, response))
         self.conn.commit()
 
     def insert_new_input(self, name, userInput):
+        self.cursor.execute("SELECT user_id FROM Users WHERE name = ?", (name,))
+        user = self.cursor.fetchone()
+        if user:
+            user_id = user[0]
+
+            self.cursor.execute("INSERT INTO Inputs (user_id, input_text) VALUES (?,?)", (user_id, userInput))
+            self.conn.commit()
+            return True
+        else:
+            print("Name not in database, try again")
+            return False
+
+        ''' Keeping just in case xD
         self.cursor.execute("SELECT * FROM User WHERE Name = ?", (name,))
         if self.cursor.fetchone():
             self.cursor.execute("UPDATE User SET userInput = ? WHERE Name = ?", (userInput, name))
@@ -117,6 +145,7 @@ class DatabaseHandler:
         else:
             print("Name not in database, try again")
             self.insert_new_input(name,userInput )
+        '''
 
     def insert_new_response(self, name, response):
         self.cursor.execute("SELECT * FROM User WHERE Name = ?", (name,))
