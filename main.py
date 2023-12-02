@@ -1,18 +1,33 @@
-import dearpygui.dearpygui as dpg
-import dearpygui.demo as demo
-dpg.create_context()
-dpg.create_viewport(title='Squad Discord Message Database', width=1000, height=600)
+import discord, dotenv, os
+dotenv.load_dotenv()
+frankeToken = str(os.getenv("frankeTOKEN"))
+testToken = str(os.getenv("testTOKEN"))
+bot = discord.Bot()
 
-demo.show_demo()
+@bot.slash_command(description="Amogus2")
+async def amongus(ctx: discord.ApplicationContext, user: discord.User=None):
+    print('hi')
+    user = user or ctx.author
+    await ctx.respond(f'''{user} you wanted this?\n 
+⠀⠀⠀⠀⠀⢰⡿⠋⠁⠀⠀⠈⠉⠙⠻⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢀⣿⠇⠀⢀⣴⣶⡾⠿⠿⠿⢿⣿⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⣀⣀⣸⡿⠀⠀⢸⣿⣇⠀⠀⠀⠀⠀⠀⠙⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⣾⡟⠛⣿⡇⠀⠀⢸⣿⣿⣷⣤⣤⣤⣤⣶⣶⣿⠇⠀⠀⠀⠀⠀⠀⠀⣀⠀⠀
+⢀⣿⠀⢀⣿⡇⠀⠀⠀⠻⢿⣿⣿⣿⣿⣿⠿⣿⡏⠀⠀⠀⠀⢴⣶⣶⣿⣿⣿⣆
+⢸⣿⠀⢸⣿⡇⠀⠀⠀⠀⠀⠈⠉⠁⠀⠀⠀⣿⡇⣀⣠⣴⣾⣮⣝⠿⠿⠿⣻⡟
+⢸⣿⠀⠘⣿⡇⠀⠀⠀⠀⠀⠀⠀⣠⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⠉⠀
+⠸⣿⠀⠀⣿⡇⠀⠀⠀⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠉⠀⠀⠀⠀
+⠀⠻⣷⣶⣿⣇⠀⠀⠀⢠⣼⣿⣿⣿⣿⣿⣿⣿⣛⣛⣻⠉⠁⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢸⣿⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢸⣿⣀⣀⣀⣼⡿⢿⣿⣿⣿⣿⣿⡿⣿⣿⡿''')
 
-'''
-with dpg.window(label="Example window"):
-    dpg.add_text("Hello, world!")
-    dpg.add_button(label="save")
-    dpg.add_input_text(label="string", default_value="Quick Brown Fox")
-    dpg.add_slider_float(label="float", default_value=0.273, max_value=1)
-'''
-dpg.setup_dearpygui()
-dpg.show_viewport()
-dpg.start_dearpygui()
-dpg.destroy_context()
+@bot.slash_command(description="pfps")
+async def pfp2(ctx: discord.ApplicationContext, user: discord.User=None):
+    user = user or ctx.author
+    await ctx.respond(f'{user.display_avatar.url}')
+
+print('started')
+
+#bot.run(testToken) # ASDFASDF BOT
+
+bot.run(frankeToken) # FRANKE BOT
